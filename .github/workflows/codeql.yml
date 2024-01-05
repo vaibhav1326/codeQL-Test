@@ -8,14 +8,15 @@ on:
 jobs:
   codeql-analysis:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         language: [java]
-
+  
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PAT_TOKEN }}
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
