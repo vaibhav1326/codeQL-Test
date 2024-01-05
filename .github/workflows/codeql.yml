@@ -8,30 +8,26 @@ on:
 jobs:
   codeql-analysis:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        language: [java]
-  
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.PAT_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
 
-    - name: Build code
-      run: |
-        # Add commands to build your code if necessary
-        # For example, for Java: ./gradlew build
+      - name: Build code
+        run: |
+          # Add commands to build your code if necessary
+          # For example, for Java: ./gradlew build
 
-    - name: Run CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          languages: java
+         # queries: path/to/your/custom/queries
 
-    - name: Upload CodeQL results
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: codeql-results.sarif
+      - name: Upload CodeQL results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: codeql-results.sarif
